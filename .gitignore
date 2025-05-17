@@ -1,0 +1,34 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# VSCode
+.vscode/
+
+# Alembic migration artifacts (optional)
+migrations/versions/*.pyc
+
+# Python egg metadata
+*.egg-info/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Pytest cache
+.pytest_cache/
+
+# Database files (optional)
+*.sqlite3
+
+# Environment variables
+.env
+
+# Jupyter Notebooks checkpoints (if any)
+.ipynb_checkpoints/
