@@ -28,6 +28,7 @@ class HTTPStatusCodes:
 
 class Messages:
     PAYLOAD_VALIDATION_ERROR = 'Payload has errors.'
+    INVALID_CREDENTIALS = 'Invalid credentials'
 
 
     # User Messages
