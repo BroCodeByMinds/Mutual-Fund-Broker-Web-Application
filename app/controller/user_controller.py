@@ -15,6 +15,7 @@ user_service = UserService()
 async def register(user: Dict, db: Session = Depends(get_db)) -> dict:
     return user_service.register_user(user_data=user, db=db)
 
-    # async def login(self, user: UserLoginVM, db: Session = Depends(get_db)) -> dict:
-    #     token = login_user(user, db)
-    #     return {"access_token": token}
+
+@router.post("/login")
+async def register(user: Dict, db: Session = Depends(get_db)) -> dict:
+    return user_service.login_user(parameters=user, db=db)
