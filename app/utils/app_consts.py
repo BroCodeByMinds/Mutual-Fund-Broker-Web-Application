@@ -10,7 +10,7 @@ class AppFields:
 
 class DataBaseTables:
     USERS = 'users'
-
+    FAMILY_FUND_ORM = 'family_fund'
 
 
 class HTTPStatusCodes:
