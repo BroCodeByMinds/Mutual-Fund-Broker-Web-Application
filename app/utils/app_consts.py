@@ -29,7 +29,15 @@ class HTTPStatusCodes:
 class Messages:
     PAYLOAD_VALIDATION_ERROR = 'Payload has errors.'
     INVALID_CREDENTIALS = 'Invalid credentials'
-
+    RATE_LIMIT_ERROR_MSG = "Rate limit exceeded. Please try again later."
+    VALIDATION_ERROR_MSG = "Data validation error: "
 
     # User Messages
     EMAIL_ALREADY_REGISTERED = 'email already registerd : '
+
+
+class QueryParams:
+    # API Query Params
+    RTA_AGENT_CODE_KEY = "RTA_Agent_Code"
+    RTA_AGENT_CODE_VALUE = "CAMS"
+    MUTUAL_FUND_FAMILY_KEY = "Mutual_Fund_Family"
