@@ -1,13 +1,12 @@
 from typing import Dict, Optional
 from sqlalchemy.orm import Session
-from app.repository.user_repository import UserRepository
 from app.services.base import Base
 from app.models_db.user_orm import UserORM
+from app.utils.auth import create_access_token
+from app.utils.app_consts import AppFields, Messages
+from app.repository.user_repository import UserRepository
 from app.models_vm.user_vm import UserCreateVM, UserLoginVM
-from app.utils.app_consts import Messages
 from app.utils.security import hash_password, verify_password
-from app.utils.jwt import create_access_token
-from fastapi import HTTPException, status
 
 
 class UserService(Base):
@@ -41,7 +40,7 @@ class UserService(Base):
 
         # Step 5: Return success response
         token = create_access_token({"sub": user_vm.email})
-        return self.resp_builder.build_success_response(data={"email": user_email, "access_token": token})
+        return self.resp_builder.build_success_response(data={AppFields.EMAIL: user_email, AppFields.ACCESS_TOKEN: token})
 
 
     
@@ -68,4 +67,4 @@ class UserService(Base):
 
         # Step 5: Return success response
         token = create_access_token({"sub": user_vm.email})
-        return self.resp_builder.build_success_response(data={"email": user_vm.email, "access_token": token})
+        return self.resp_builder.build_success_response(data={AppFields.EMAIL: user_vm.email, AppFields.ACCESS_TOKEN: token})

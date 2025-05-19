@@ -5,6 +5,8 @@ class DataBaseSchemas:
 
 class AppFields:
     SCHEMA = 'schema'
+    ACCESS_TOKEN = 'access_token'
+    EMAIL = 'email'
 
 
 
@@ -31,6 +33,7 @@ class Messages:
     INVALID_CREDENTIALS = 'Invalid credentials'
     RATE_LIMIT_ERROR_MSG = "Rate limit exceeded. Please try again later."
     VALIDATION_ERROR_MSG = "Data validation error: "
+    INVALID_TOKEN = 'Invalid or expired token'
 
     # User Messages
     EMAIL_ALREADY_REGISTERED = 'email already registerd : '
