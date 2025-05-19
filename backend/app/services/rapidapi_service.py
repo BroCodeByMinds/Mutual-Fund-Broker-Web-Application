@@ -3,13 +3,13 @@ import httpx
 import logging
 from pytest import Session
 from dotenv import load_dotenv
-from app.services.base import Base
+from backend.app.services.base import Base
 from pydantic import ValidationError
 from typing import Dict, List, Union
-from app.utils.app_consts import Messages, QueryParams
-from app.models_vm.fund_family_item_vm import FundFamilyItemVM
-from app.repository.family_fund_repository import FamilyFundRepository
-from app.models_vm.family_fund_response_vm import FamilyFundResponseVM
+from backend.app.utils.app_consts import Messages, QueryParams
+from backend.app.models_vm.fund_family_item_vm import FundFamilyItemVM
+from backend.app.repository.family_fund_repository import FamilyFundRepository
+from backend.app.models_vm.family_fund_response_vm import FamilyFundResponseVM
 
 
 load_dotenv()

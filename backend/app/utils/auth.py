@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
-from app.utils.app_consts import Messages
+from backend.app.utils.app_consts import Messages
 from fastapi import Depends, Header, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 

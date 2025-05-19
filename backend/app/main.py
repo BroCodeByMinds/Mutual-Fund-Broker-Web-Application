@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.controller import user_controller, fund_controller
+from backend.app.controller import user_controller, fund_controller
 
 app = FastAPI()
 

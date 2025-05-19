@@ -1,5 +1,5 @@
-from app.utils.app_consts import Messages
-from app.utils.response_builder import ResponseBuilder
+from backend.app.utils.app_consts import Messages
+from backend.app.utils.response_builder import ResponseBuilder
 
 
 class Base:
