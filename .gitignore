@@ -32,3 +32,19 @@ Thumbs.db
 
 # Jupyter Notebooks checkpoints (if any)
 .ipynb_checkpoints/
+
+
+# Node modules
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Build folders
+build/
+frontend/build/
+backend/build/
+
+# Env and IDE stuff
+.env
+.vscode/
+venv/

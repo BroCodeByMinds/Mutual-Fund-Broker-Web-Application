@@ -16,6 +16,6 @@ async def get_open_ended_schemes(mutual_fund_family: str = Query(...), user: dic
     return await rapidapi_service.get_open_ended_schemes(mutual_fund_family=mutual_fund_family)
 
 
-@router.post("/fund-families")
+@router.get("/fund-families")
 async def get_fund_families(db: Session = Depends(get_db), user: dict = Depends(get_current_user)) -> dict:
     return rapidapi_service.fetch_fund_families(db=db)
