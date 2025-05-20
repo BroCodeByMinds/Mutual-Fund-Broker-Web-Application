@@ -1,9 +1,9 @@
-from backend.app.db import get_db
+from app.db import get_db
 from typing import List, Union
 from sqlalchemy.orm import Session
-from backend.app.utils.auth import get_current_user
+from app.utils.auth import get_current_user
 from fastapi import APIRouter, Depends, Query
-from backend.app.services.rapidapi_service import RapidAPIService
+from app.services.rapidapi_service import RapidAPIService
 
 
 router = APIRouter(prefix="/funds", tags=["Funds"])

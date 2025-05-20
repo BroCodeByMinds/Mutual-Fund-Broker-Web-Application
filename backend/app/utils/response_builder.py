@@ -1,5 +1,5 @@
-from backend.app.utils.app_consts import HTTPStatusCodes
-from backend.app.utils.singleton import Singleton
+from app.utils.app_consts import HTTPStatusCodes
+from app.utils.singleton import Singleton
 
 
 class ResponseBuilder(metaclass=Singleton):

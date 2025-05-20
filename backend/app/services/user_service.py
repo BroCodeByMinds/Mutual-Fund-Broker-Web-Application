@@ -1,12 +1,12 @@
 from typing import Dict, Optional
 from sqlalchemy.orm import Session
-from backend.app.services.base import Base
-from backend.app.models_db.user_orm import UserORM
-from backend.app.utils.auth import create_access_token
-from backend.app.utils.app_consts import AppFields, Messages
-from backend.app.repository.user_repository import UserRepository
-from backend.app.models_vm.user_vm import UserCreateVM, UserLoginVM
-from backend.app.utils.security import hash_password, verify_password
+from app.services.base import Base
+from app.models_db.user_orm import UserORM
+from app.utils.auth import create_access_token
+from app.utils.app_consts import AppFields, Messages
+from app.repository.user_repository import UserRepository
+from app.models_vm.user_vm import UserCreateVM, UserLoginVM
+from app.utils.security import hash_password, verify_password
 
 
 class UserService(Base):

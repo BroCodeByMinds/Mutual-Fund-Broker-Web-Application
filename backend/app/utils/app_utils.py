@@ -1,5 +1,5 @@
 from datetime import datetime
-from backend.app.utils.app_consts import AppFields
+from app.utils.app_consts import AppFields
 
 
 class AppUtils:
