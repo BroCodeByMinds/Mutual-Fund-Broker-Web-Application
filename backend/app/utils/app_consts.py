@@ -13,7 +13,7 @@ class AppFields:
 class DataBaseTables:
     USERS = 'users'
     FAMILY_FUND_ORM = 'family_fund'
-
+    NavCacheORM = 'nav_cache'
 
 class HTTPStatusCodes:
     def __init__(self) -> None:
@@ -34,7 +34,8 @@ class Messages:
     RATE_LIMIT_ERROR_MSG = "Rate limit exceeded. Please try again later."
     VALIDATION_ERROR_MSG = "Data validation error: "
     INVALID_TOKEN = 'Invalid or expired token'
-
+    NAV_SCHEDULER_STARTED = "NAV scheduler started."
+    NAV_SCHEDULER_CANCELLED = "NAV scheduler cancelled gracefully."
     # User Messages
     EMAIL_ALREADY_REGISTERED = 'email already registerd : '
 
@@ -44,3 +45,7 @@ class QueryParams:
     RTA_AGENT_CODE_KEY = "RTA_Agent_Code"
     RTA_AGENT_CODE_VALUE = "CAMS"
     MUTUAL_FUND_FAMILY_KEY = "Mutual_Fund_Family"
+
+
+class Schedulers:
+    MUTUAL_FUND_FAMILIES = ['HDFC Mutual Fund', 'SBI Mutual Fund']

@@ -9,6 +9,7 @@ from typing import Dict, List, Union
 from backend.app.utils.app_consts import Messages, QueryParams
 from backend.app.models_vm.fund_family_item_vm import FundFamilyItemVM
 from backend.app.repository.family_fund_repository import FamilyFundRepository
+from backend.app.repository.nav_cache_repository import NavCacheRepository
 from backend.app.models_vm.family_fund_response_vm import FamilyFundResponseVM
 
 
@@ -27,33 +28,43 @@ class RapidAPIService(Base):
         self.base_url = f"https://{self.api_host}"
         self.headers = {"X-RapidAPI-Key": self.api_key, "X-RapidAPI-Host": self.api_host}
         self.fund_repo = FamilyFundRepository()
+        self.nav_cache_repo = NavCacheRepository()
+        
 
-
-    async def get_open_ended_schemes(self, mutual_fund_family: str) -> Union[List[FundFamilyItemVM], Dict[str, str]]:
+    async def fetch_and_cache_navs(self, db: Session, mutual_fund_family: str) -> None:
         url = f"{self.base_url}/latest"
         params = {
             QueryParams.RTA_AGENT_CODE_KEY: QueryParams.RTA_AGENT_CODE_VALUE,
             QueryParams.MUTUAL_FUND_FAMILY_KEY: mutual_fund_family
         }
 
-        async with httpx.AsyncClient() as client:
-            try:
+        try:
+            async with httpx.AsyncClient() as client:
                 response = await client.get(url, headers=self.headers, params=params)
                 response.raise_for_status()
-                data = response.json()
-            except httpx.HTTPStatusError as e:
-                if e.response.status_code == 429:
-                    return {"error": Messages.RATE_LIMIT_ERROR_MSG}
-                raise
+                raw_data = response.json()
+        except httpx.HTTPStatusError as e:
+            logger.warning(f"HTTP error ({e.response.status_code}) while fetching NAVs for {mutual_fund_family}: {e}")
+            return
+        except Exception as e:
+            logger.error(f"Unexpected error while fetching NAVs: {e}")
+            return
 
-        valid_items: List[FundFamilyItemVM] = []
-        for item in data:
+        nav_items = []
+        for item in raw_data:
             try:
-                valid_items.append(FundFamilyItemVM(**item))
+                validated = FundFamilyItemVM(**item)
+                nav_items.append(validated)
             except ValidationError as e:
-                logger.warning(f"{Messages.VALIDATION_ERROR_MSG}: {e}")
+                logger.warning(f"Skipping invalid NAV record: {e}")
 
-        return valid_items
+        if not nav_items:
+            logger.info(f"No valid NAVs fetched for {mutual_fund_family}")
+            return
+
+        self.nav_cache_repo.upsert_nav_caches(db, nav_items)
+        logger.info(f"{len(nav_items)} NAV records processed for {mutual_fund_family}")
+
     
 
     def fetch_fund_families(self, db: Session) -> List[Dict]:
