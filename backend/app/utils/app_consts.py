@@ -7,13 +7,14 @@ class AppFields:
     SCHEMA = 'schema'
     ACCESS_TOKEN = 'access_token'
     EMAIL = 'email'
-
+    DATE_FORMAT = "%Y-%m-%d"
 
 
 class DataBaseTables:
     USERS = 'users'
     FAMILY_FUND_ORM = 'family_fund'
     NavCacheORM = 'nav_cache'
+
 
 class HTTPStatusCodes:
     def __init__(self) -> None:

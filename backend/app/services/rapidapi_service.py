@@ -3,9 +3,11 @@ import httpx
 import logging
 from pytest import Session
 from dotenv import load_dotenv
-from backend.app.services.base import Base
 from pydantic import ValidationError
 from typing import Dict, List, Union
+from backend.app.services.base import Base
+from backend.app.utils.app_utils import AppUtils
+from backend.app.models_db.nav_cache_orm import NavCacheORM
 from backend.app.utils.app_consts import Messages, QueryParams
 from backend.app.models_vm.fund_family_item_vm import FundFamilyItemVM
 from backend.app.repository.family_fund_repository import FamilyFundRepository
@@ -19,7 +21,6 @@ API_HOST = os.getenv("API_HOST")
 logger = logging.getLogger(__name__)
 
 
-
 class RapidAPIService(Base):
     def __init__(self):
         super().__init__()
@@ -29,6 +30,7 @@ class RapidAPIService(Base):
         self.headers = {"X-RapidAPI-Key": self.api_key, "X-RapidAPI-Host": self.api_host}
         self.fund_repo = FamilyFundRepository()
         self.nav_cache_repo = NavCacheRepository()
+        self.app_utils = AppUtils()
         
 
     async def fetch_and_cache_navs(self, db: Session, mutual_fund_family: str) -> None:
@@ -83,3 +85,30 @@ class RapidAPIService(Base):
                 )
                 response_data.append(family_fund_data.model_dump())
         return self.resp_builder.build_success_response(data=response_data)
+    
+
+    def get_open_ended_schemes(self, db: Session, mutual_fund_family_id: int):
+        if not mutual_fund_family_id:
+            return self.resp_builder.build_success_response(data=None)
+        
+        nav_cache_orms: List[NavCacheORM] = self.nav_cache_repo.get_open_ended_schemes(
+            db, mutual_fund_family_id
+        )
+
+        if not nav_cache_orms:
+            return self.resp_builder.build_success_response(data=None)
+
+        result: List[dict] = [
+            FundFamilyItemVM(
+                Scheme_Code=nav.scheme_code,
+                Scheme_Name=nav.scheme_name,
+                Net_Asset_Value=nav.nav,
+                Date=self.app_utils.format_date(nav.nav_date),
+                Scheme_Type=nav.scheme_type,
+                Scheme_Category=nav.scheme_category,
+                Mutual_Fund_Family=nav.mutual_fund_family,
+            ).model_dump()
+            for nav in nav_cache_orms
+        ]
+
+        return self.resp_builder.build_success_response(result)
