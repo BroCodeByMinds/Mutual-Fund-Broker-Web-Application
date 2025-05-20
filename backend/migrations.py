@@ -7,6 +7,10 @@ load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+# Define the path to the migrations/versions directory
+VERSIONS_DIR = os.path.join(os.path.dirname(__file__), "migrations", "versions")
+os.makedirs(VERSIONS_DIR, exist_ok=True)
+
 def create_schema_if_not_exists():
     """Creates the 'master' schema in the PostgreSQL database if it doesn't exist."""
     try:
