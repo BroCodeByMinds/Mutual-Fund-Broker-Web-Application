@@ -1,12 +1,12 @@
 from typing import Dict
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from backend.app.db import get_db
+from app.db import get_db
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from backend.app.db import get_db
-from backend.app.models_vm.user_vm import UserCreateVM, UserLoginVM, TokenVM
-from backend.app.services.user_service import UserService
+from app.db import get_db
+from app.models_vm.user_vm import UserCreateVM, UserLoginVM, TokenVM
+from app.services.user_service import UserService
 
 router = APIRouter(prefix="/user", tags=["Auth"])
 user_service = UserService()

@@ -1,7 +1,7 @@
 # user.py
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, func
-from backend.app.utils.app_consts import DataBaseTables, DataBaseSchemas, AppFields
-from backend.app.db import Base
+from app.utils.app_consts import DataBaseTables, DataBaseSchemas, AppFields
+from app.db import Base
 
 class UserORM(Base): 
     __tablename__ = DataBaseTables.USERS

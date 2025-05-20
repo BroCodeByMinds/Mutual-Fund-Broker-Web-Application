@@ -1,9 +1,9 @@
 import asyncio
 import logging
 from fastapi import FastAPI
-from backend.app.db import get_db
-from backend.app.utils.app_consts import Schedulers
-from backend.app.services.rapidapi_service import RapidAPIService
+from app.db import get_db
+from app.utils.app_consts import Schedulers
+from app.services.rapidapi_service import RapidAPIService
 
 
 logger = logging.getLogger(__name__)

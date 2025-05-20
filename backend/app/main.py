@@ -4,8 +4,8 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
 from app.utils.app_consts import Messages
-from backend.app.controller import user_controller, fund_controller
-from backend.app.schedulers.nav_scheduler import schedule_nav_fetch
+from app.controller import user_controller, fund_controller
+from app.schedulers.nav_scheduler import schedule_nav_fetch
 
 app = FastAPI()
 logger = logging.getLogger(__name__)

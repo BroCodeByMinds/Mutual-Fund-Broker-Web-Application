@@ -1,6 +1,6 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
-from backend.app.models_db.family_fund_orm import FamilyFundORM
+from app.models_db.family_fund_orm import FamilyFundORM
 
 
 class FamilyFundRepository:

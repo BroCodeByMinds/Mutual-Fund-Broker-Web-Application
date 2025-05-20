@@ -1,5 +1,5 @@
-from backend.app.db import Base, engine
-from backend.app.models_db.user_orm import UserORM
+from app.db import Base, engine
+from app.models_db.user_orm import UserORM
 
 # This will create the tables
 def init():
