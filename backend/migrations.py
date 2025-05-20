@@ -2,6 +2,8 @@ import os
 import subprocess
 from dotenv import load_dotenv
 import psycopg2
+from psycopg2 import sql
+from datetime import datetime
 
 load_dotenv()
 
@@ -23,6 +25,49 @@ def create_schema_if_not_exists():
         conn.close()
     except Exception as e:
         print("❌ Failed to create schema:", e)
+
+
+def insert_master_family_fund_data():
+    """Inserts master data into master.family_fund table."""
+    insert_query = """
+    INSERT INTO master.family_fund (
+        family_fund_id,
+        family_fund_name,
+        created_date,
+        updated_date,
+        created_by_user_name,
+        updated_by_user_name,
+        is_deleted
+    ) VALUES %s
+    ON CONFLICT (family_fund_id) DO NOTHING;
+    """
+
+    values = [
+        (1, 'HDFC Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (2, 'SBI Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (3, 'ICICI Prudential Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (4, 'Nippon India Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (5, 'Axis Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (6, 'Kotak Mahindra Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (7, 'Aditya Birla Sun Life Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (8, 'DSP Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (9, 'Franklin Templeton Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False),
+        (10, 'UTI Mutual Fund', '2025-05-17 21:01:33.375+05:30', '2025-05-17 21:01:33.375+05:30', 'system', 'system', False)
+    ]
+
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+        conn.autocommit = True
+        cur = conn.cursor()
+        # Using psycopg2's mogrify and execute for bulk insert with ON CONFLICT
+        from psycopg2.extras import execute_values
+        execute_values(cur, insert_query, values)
+        print("✅ Master family_fund data inserted.")
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print("❌ Failed to insert master data:", e)
+
 
 def init_alembic():
     """Initializes Alembic if not already initialized."""
@@ -68,6 +113,7 @@ def main():
     configure_alembic_ini()
     generate_migration()
     upgrade_db()
+    insert_master_family_fund_data()
     print("🎉 All done!")
 
 if __name__ == "__main__":
