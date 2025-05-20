@@ -1,6 +1,7 @@
 import logging
 from typing import List, Optional
 from sqlalchemy.orm import Session
+from backend.app.models_db.family_fund_orm import FamilyFundORM
 from backend.app.models_db.nav_cache_orm import NavCacheORM
 from backend.app.models_vm.fund_family_item_vm import FundFamilyItemVM
 
@@ -42,3 +43,15 @@ class NavCacheRepository:
         except Exception as e:
             db.rollback()
             logger.error(f"Error committing NAV records: {e}")
+
+
+    def get_open_ended_schemes(self, db: Session, mutual_fund_family_id: int) -> List[NavCacheORM]:
+        return (
+            db.query(NavCacheORM)
+            .join(
+                FamilyFundORM,
+                FamilyFundORM.family_fund_name == NavCacheORM.mutual_fund_family
+            )
+            .filter(FamilyFundORM.family_fund_id == mutual_fund_family_id)
+            .all()
+        )
