@@ -3,6 +3,7 @@ import subprocess
 from dotenv import load_dotenv
 import psycopg2
 from psycopg2 import sql
+from psycopg2.extras import execute_values
 from datetime import datetime
 
 load_dotenv()
@@ -12,6 +13,29 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 # Define the path to the migrations/versions directory
 VERSIONS_DIR = os.path.join(os.path.dirname(__file__), "migrations", "versions")
 os.makedirs(VERSIONS_DIR, exist_ok=True)
+
+
+def create_database_if_not_exists():
+    db_url_parts = DATABASE_URL.rsplit('/', 1)
+    default_db_url = db_url_parts[0] + '/postgres'
+    target_db_name = db_url_parts[1]
+
+    try:
+        conn = psycopg2.connect(default_db_url)
+        conn.autocommit = True
+        cur = conn.cursor()
+        cur.execute(f"SELECT 1 FROM pg_database WHERE datname = '{target_db_name}';")
+        exists = cur.fetchone()
+        if not exists:
+            cur.execute(sql.SQL("CREATE DATABASE {}").format(sql.Identifier(target_db_name)))
+            print(f"✅ Database '{target_db_name}' created.")
+        else:
+            print(f"ℹ️ Database '{target_db_name}' already exists.")
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print("❌ Failed to create database:", e)
+
 
 def create_schema_if_not_exists():
     """Creates the 'master' schema in the PostgreSQL database if it doesn't exist."""
@@ -59,8 +83,6 @@ def insert_master_family_fund_data():
         conn = psycopg2.connect(DATABASE_URL)
         conn.autocommit = True
         cur = conn.cursor()
-        # Using psycopg2's mogrify and execute for bulk insert with ON CONFLICT
-        from psycopg2.extras import execute_values
         execute_values(cur, insert_query, values)
         print("✅ Master family_fund data inserted.")
         cur.close()
@@ -108,6 +130,7 @@ def upgrade_db():
 
 def main():
     print("🚀 Starting Alembic setup and migration...")
+    create_database_if_not_exists()
     create_schema_if_not_exists()
     init_alembic()
     configure_alembic_ini()
