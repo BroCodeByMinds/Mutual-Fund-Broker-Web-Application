@@ -3,7 +3,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 from app.models_db.family_fund_orm import FamilyFundORM
 from app.models_db.nav_cache_orm import NavCacheORM
-from app.models_vm.fund_family_item_vm import FundFamilyItemVM
+from app.helper.models_vm.fund_family_item_vm import FundFamilyItemVM
 
 
 logger = logging.getLogger(__name__)

@@ -5,7 +5,6 @@ from app.db import get_db
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.db import get_db
-from app.models_vm.user_vm import UserCreateVM, UserLoginVM, TokenVM
 from app.services.user_service import UserService
 
 router = APIRouter(prefix="/user", tags=["Auth"])
