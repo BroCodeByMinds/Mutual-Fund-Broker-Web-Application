@@ -14,7 +14,7 @@ class AppFields:
 class DataBaseTables:
     USERS = 'users'
     FAMILY_FUND_ORM = 'family_fund'
-    NavCacheORM = 'nav_cache'
+    NAV_CACHE_ORM = 'nav_cache'
     PORTFOLIO_ITEMS = 'fortfolio_items'
     TRANSACTIONS = 'transactions'
 

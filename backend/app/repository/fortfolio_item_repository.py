@@ -20,9 +20,9 @@ class FortFolioItemRepository:
             .all()
         )
     
-    def refresh_db(db: Session, portfolio_item: PortfolioItemORM) -> PortfolioItemORM:
+    def refresh_db(self, db: Session, portfolio_item: PortfolioItemORM) -> PortfolioItemORM:
         db.refresh(portfolio_item)
         return portfolio_item
     
-    def add_to_db(db: Session, portfolio_item: PortfolioItemORM):
+    def add_to_db(self, db: Session, portfolio_item: PortfolioItemORM):
         db.add(portfolio_item)

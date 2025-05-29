@@ -23,13 +23,3 @@ class UserRepository:
         db.commit()
         db.refresh(user)
         return user.user_email
-    
-    def get_user_by_email_and_password(self, user_email: str, password: str, db: Session) -> Optional[UserORM]:
-        return (
-            db.query(UserORM)
-            .filter(
-                UserORM.user_email == user_email,
-                UserORM.is_deleted.isnot(True)
-            )
-            .first()
-        )
