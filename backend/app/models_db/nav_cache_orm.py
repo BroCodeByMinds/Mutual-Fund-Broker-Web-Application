@@ -7,7 +7,7 @@ from app.models_db.transaction_orm import TransactionORM
 
 
 class NavCacheORM(Base): 
-    __tablename__ = DataBaseTables.NavCacheORM
+    __tablename__ = DataBaseTables.NAV_CACHE_ORM
     __table_args__ = {AppFields.SCHEMA: DataBaseSchemas.MASTER}
 
     scheme_code = Column(Integer, primary_key=True, index=True)

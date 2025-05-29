@@ -11,5 +11,5 @@ class TransactionsRepository:
     def commit_updates(self, db: Session) -> None:
         db.commit()
 
-    def add_to_db(db: Session, transaction: TransactionORM):
+    def add_to_db(self, db: Session, transaction: TransactionORM):
         db.add(transaction)
