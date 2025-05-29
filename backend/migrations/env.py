@@ -11,6 +11,8 @@ from app.db import Base
 from app.models_db.family_fund_orm import FamilyFundORM
 from app.models_db.nav_cache_orm import NavCacheORM
 from app.models_db.user_orm import UserORM
+from app.models_db.portfolio_item_orm import PortfolioItemORM
+from app.models_db.transaction_orm import TransactionORM
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

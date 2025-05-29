@@ -2,6 +2,8 @@
 from sqlalchemy import Boolean, Column, Date, DateTime, Float, Integer, String, func
 from app.utils.app_consts import DataBaseTables, DataBaseSchemas, AppFields
 from app.db import Base
+from app.models_db.portfolio_item_orm import PortfolioItemORM
+from app.models_db.transaction_orm import TransactionORM
 
 
 class NavCacheORM(Base): 

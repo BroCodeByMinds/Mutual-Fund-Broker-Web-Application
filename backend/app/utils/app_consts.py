@@ -1,5 +1,6 @@
 class DataBaseSchemas:
     MASTER = 'master'
+    PORTFOLIO = 'portfolio'
     
 
 
@@ -14,6 +15,13 @@ class DataBaseTables:
     USERS = 'users'
     FAMILY_FUND_ORM = 'family_fund'
     NavCacheORM = 'nav_cache'
+    PORTFOLIO_ITEMS = 'fortfolio_items'
+    TRANSACTIONS = 'transactions'
+
+
+class ForeignKeys:
+    SCHEMA_CODE = 'scheme_code'
+    PORTFOLIO_ITEM_ID = 'portfolio_item_id'
 
 
 class HTTPStatusCodes:
@@ -39,7 +47,9 @@ class Messages:
     NAV_SCHEDULER_CANCELLED = "NAV scheduler cancelled gracefully."
     # User Messages
     EMAIL_ALREADY_REGISTERED = 'email already registerd : '
-
+    SCHEME_NOT_FOUND = 'Scheme not found'
+    PURCHASE_TRANSACTION_FAILED = "Purchase transaction unsuccessful"
+    
 
 class QueryParams:
     # API Query Params

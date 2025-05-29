@@ -55,3 +55,10 @@ class NavCacheRepository:
             .filter(FamilyFundORM.family_fund_id == mutual_fund_family_id)
             .all()
         )
+
+    def get_open_ended_scheme_by_code(self, db: Session, scheme_code: str) -> Optional[NavCacheORM]:
+        return (
+            db.query(NavCacheORM)
+            .filter(NavCacheORM.scheme_code == scheme_code)
+            .first()
+        )
