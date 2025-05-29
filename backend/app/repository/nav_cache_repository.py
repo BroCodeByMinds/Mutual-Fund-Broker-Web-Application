@@ -3,7 +3,7 @@ from typing import List, Optional
 from sqlalchemy.orm import Session
 from app.models_db.family_fund_orm import FamilyFundORM
 from app.models_db.nav_cache_orm import NavCacheORM
-from app.models_vm.fund_family_item_vm import FundFamilyItemVM
+from app.helper.models_vm.fund_family_item_vm import FundFamilyItemVM
 
 
 logger = logging.getLogger(__name__)
@@ -54,4 +54,11 @@ class NavCacheRepository:
             )
             .filter(FamilyFundORM.family_fund_id == mutual_fund_family_id)
             .all()
+        )
+
+    def get_open_ended_scheme_by_code(self, db: Session, scheme_code: str) -> Optional[NavCacheORM]:
+        return (
+            db.query(NavCacheORM)
+            .filter(NavCacheORM.scheme_code == scheme_code)
+            .first()
         )

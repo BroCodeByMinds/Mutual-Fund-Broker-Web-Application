@@ -5,7 +5,7 @@ from app.models_db.user_orm import UserORM
 from app.utils.auth import create_access_token
 from app.utils.app_consts import AppFields, Messages
 from app.repository.user_repository import UserRepository
-from app.models_vm.user_vm import UserCreateVM, UserLoginVM
+from app.helper.models_vm.user_vm import UserCreateVM, UserLoginVM
 from app.utils.security import hash_password, verify_password
 
 

@@ -22,3 +22,6 @@ class ResponseBuilder(metaclass=Singleton):
     def build_warn_response(self, msg=None, data=None):
         return self.__build_response(HTTPStatusCodes.WARNING, message=msg, data=data)
     
+
+    def build_error_response(self, msg=None, data=None):
+        return self.__build_response(HTTPStatusCodes.ERROR, message=msg, data=data)
